@@ -17,6 +17,11 @@ export const SignupForm = () => {
       });
   }, [refreshPage]);
 
+  // For validation we will use the Yup library that meshes well with Formik. 
+  // Lets look at the validation schema. Yup allows us to instantiate an object 
+  // and define its shape using the shape function which takes in an object of 
+  // the fields we want to validate. We can chain validation rules to create complex 
+  //  and strict validation rules that allow us to control input and create more robust applications.
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
     name: yup.string().required("Must enter a name").max(15),
@@ -28,7 +33,9 @@ export const SignupForm = () => {
       .typeError("Please enter an Integer")
       .max(125),
   });
-
+// The Formik library provides us a hook to give initial values to the 
+// form and write a onSubmit callback function to do something with the values that were submitted.
+// We can use the onSubmit method to submit send the values to the server and store the values in the database
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -50,7 +57,7 @@ export const SignupForm = () => {
       });
     },
   });
-
+// The useFormik hook gives us many useful functions to pass into the HTML attributes
   return (
     <div>
       <h1>Customer sign up form</h1>
